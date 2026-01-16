@@ -51,7 +51,7 @@ def create_stratified_folds():
         raise ValueError(f"Target column '{target_col}' not found in the dataset")
     
     # Initialize StratifiedKFold
-    skf = StratifiedKFold(n_splits=10, shuffle=True, random_state=42)
+    skf = StratifiedKFold(n_splits=10, shuffle=True, random_state=43)
     
     # Create folds
     fold_data = []
