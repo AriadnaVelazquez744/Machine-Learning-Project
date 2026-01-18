@@ -401,7 +401,7 @@ def validate_rf_fold(fold_idx: int):
     print(f"Confusion Matrix:\n{cm}")
 
     # Load existing results or create new
-    filename = "Random_Forest_validation_results.json"
+    filename = "RandomForest_validation_results.json"
     filepath = os.path.join(STATS_DIR, filename)
     
     if os.path.exists(filepath):
