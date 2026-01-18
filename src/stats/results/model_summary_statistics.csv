@@ -1,0 +1,7 @@
+,F2_Score,F2_Score,F2_Score,F2_Score,F1_Score,F1_Score,Accuracy,Accuracy
+,mean,std,min,max,mean,std,mean,std
+Model,,,,,,,,
+NeuralNetwork,0.7938,0.015,0.7706,0.8216,0.8622,0.0048,0.884,0.0039
+RandomForest,0.7945,0.0075,0.7832,0.8062,0.8443,0.0048,0.8655,0.0041
+SVM,0.8733,0.0038,0.8684,0.8809,0.8559,0.0034,0.8687,0.0032
+XGBoost,0.7788,0.0063,0.7676,0.7869,0.8333,0.004,0.8562,0.0036
