@@ -1,0 +1,44 @@
+{
+  "model_name": "svm_final",
+  "model_path": "models/svm_final_20260119_130603.joblib",
+  "timestamp": "20260119_130603",
+  "training_date": "2026-01-19T13:06:03.560566",
+  "hyperparameters": {
+    "memory": null,
+    "steps": [
+      [
+        "scaler",
+        "StandardScaler()"
+      ],
+      [
+        "model",
+        "SVC(C=69.84841896499474, cache_size=2000, class_weight='balanced', gamma='auto',\n    probability=True, random_state=42)"
+      ]
+    ],
+    "transform_input": null,
+    "verbose": false,
+    "scaler": "StandardScaler()",
+    "model": "SVC(C=69.84841896499474, cache_size=2000, class_weight='balanced', gamma='auto',\n    probability=True, random_state=42)",
+    "scaler__copy": true,
+    "scaler__with_mean": true,
+    "scaler__with_std": true,
+    "model__C": 69.84841896499474,
+    "model__break_ties": false,
+    "model__cache_size": 2000,
+    "model__class_weight": "balanced",
+    "model__coef0": 0.0,
+    "model__decision_function_shape": "ovr",
+    "model__degree": 3,
+    "model__gamma": "auto",
+    "model__kernel": "rbf",
+    "model__max_iter": -1,
+    "model__probability": true,
+    "model__random_state": 42,
+    "model__shrinking": true,
+    "model__tol": 0.001,
+    "model__verbose": false
+  },
+  "augmented": false,
+  "undersampled": false,
+  "scaler_applied": true
+}

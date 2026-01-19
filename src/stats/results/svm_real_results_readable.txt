@@ -1,0 +1,43 @@
+
+SVM MODEL FINAL RESULTS
+==================================================
+
+MODEL PARAMETERS:
+{
+  "kernel": "rbf",
+  "C": 69.84841896499474,
+  "gamma": "auto",
+  "probability": true,
+  "random_state": 42,
+  "class_weight": "balanced",
+  "cache_size": 2000,
+  "tol": 0.001
+}
+
+DATASET INFORMATION:
+- Training samples: 80000
+- Test samples: 20000
+- Training class distribution: [55200, 24800]
+- Test class distribution: [13800, 6200]
+
+PERFORMANCE METRICS ON TEST SET:
+- Accuracy: 0.8725
+- F2-Score: 0.8774
+- Precision: 0.7344
+- Recall: 0.9223
+- ROC-AUC: 0.9588
+
+CONFUSION MATRIX:
+[[11732  2068]
+ [  482  5718]]
+
+CLASSIFICATION REPORT:
+              precision    recall  f1-score   support
+
+         0.0       0.96      0.85      0.90     13800
+         1.0       0.73      0.92      0.82      6200
+
+    accuracy                           0.87     20000
+   macro avg       0.85      0.89      0.86     20000
+weighted avg       0.89      0.87      0.88     20000
+

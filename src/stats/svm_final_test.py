@@ -1,16 +1,153 @@
 # Import necessary libraries
 import json
-import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 from sklearn.metrics import fbeta_score, classification_report, confusion_matrix, accuracy_score, precision_score, recall_score, roc_auc_score, roc_curve, precision_recall_curve
 from sklearn.pipeline import Pipeline
-import seaborn as sns
+import os
+from typing import Tuple, Optional, Dict, Any
+import joblib
+from datetime import datetime
 
-from ..utils.data_loader import load_split, prepare_features_target
-from ..models.manage_models import save_model
+
+def load_split(
+    split_name: str,
+    data_dir: str = "src/dataset/splits"
+) -> pd.DataFrame:
+    """
+    Load a dataset split (train, validation, or test).
+    
+    Parameters:
+    -----------
+    split_name : str
+        Name of the split to load ('train', 'validation', or 'test')
+    data_dir : str
+        Directory containing the split files
+        
+    Returns:
+    --------
+    pd.DataFrame
+        Loaded dataset split
+        
+    Raises:
+    -------
+    FileNotFoundError
+        If the split file doesn't exist
+    ValueError
+        If split_name is not one of the valid options
+    """
+    valid_splits = ['train', 'validation', 'test']
+    if split_name not in valid_splits:
+        raise ValueError(f"split_name must be one of {valid_splits}, got '{split_name}'")
+    
+    file_path = os.path.join(data_dir, f"{split_name}.csv")
+    
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(f"Split file not found: {file_path}")
+    
+    df = pd.read_csv(file_path)
+    return df
+
+
+def prepare_features_target(
+    df: pd.DataFrame,
+    target_col: str = "Fault"
+) -> Tuple[pd.DataFrame, pd.Series]:
+    """
+    Separate features and target from a dataframe.
+    
+    Parameters:
+    -----------
+    df : pd.DataFrame
+        Input dataframe containing features and target
+    target_col : str
+        Name of the target column
+        
+    Returns:
+    --------
+    Tuple[pd.DataFrame, pd.Series]
+        Tuple of (features, target)
+        
+    Raises:
+    -------
+    KeyError
+        If target_col is not found in the dataframe
+    """
+    if target_col not in df.columns:
+        raise KeyError(f"Target column '{target_col}' not found in dataframe")
+    
+    X = df.drop(columns=[target_col])
+    y = df[target_col]
+    
+    return X, y
+
+def save_model(
+    model: Any,
+    model_name: str,
+    save_path: str = 'src/models/',
+    metadata: Optional[Dict[str, Any]] = None
+) -> Dict[str, str]:
+    """
+    Save a trained model and its metadata.
+    
+    Parameters:
+    -----------
+    model : Any
+        Trained model to save
+    model_name : str
+        Name identifier for the model
+    save_path : str, default='src/models/'
+        Directory to save the model
+    metadata : dict, optional
+        Additional metadata to save (hyperparameters, metrics, etc.)
+        
+    Returns:
+    --------
+    dict
+        Dictionary with paths to saved model and metadata files
+        
+    Examples:
+    ---------
+    >>> paths = save_model(model, 'logistic_regression', metadata={'accuracy': 0.95})
+    """
+    # Create directory if it doesn't exist
+    os.makedirs(save_path, exist_ok=True)
+    
+    # Generate timestamp
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    
+    # Save model
+    model_filename = f"{model_name}_{timestamp}.joblib"
+    model_path = os.path.join(save_path, model_filename)
+    joblib.dump(model, model_path)
+    
+    # Prepare metadata
+    model_metadata = {
+        'model_name': model_name,
+        'model_path': model_path,
+        'timestamp': timestamp,
+        'training_date': datetime.now().isoformat(),
+    }
+    
+    # Add model-specific attributes if available
+    if hasattr(model, 'get_params'):
+        model_metadata['hyperparameters'] = model.get_params()
+    
+    # Add custom metadata
+    if metadata:
+        model_metadata.update(metadata)
+    
+    # Save metadata
+    metadata_filename = f"{model_name}_{timestamp}_metadata.json"
+    metadata_path = os.path.join(save_path, metadata_filename)
+    with open(metadata_path, 'w') as f:
+        json.dump(model_metadata, f, indent=2, default=str)
+    
+    return {
+        'model_path': model_path,
+        'metadata_path': metadata_path
+    }
 
 # Set random state for reproducibility
 RANDOM_STATE = 42
@@ -26,8 +163,8 @@ X_test, y_test = prepare_features_target(test_df, target_col='Fault')
 
 print(f"Training set shape: {X_train.shape}")
 print(f"Test set shape: {X_test.shape}")
-print(f"Class distribution in training set: {np.bincount(y_train)}")
-print(f"Class distribution in test set: {np.bincount(y_test)}")
+print(f"Class distribution in training set: {y_train.value_counts().sort_index().tolist()}")
+print(f"Class distribution in test set: {y_test.value_counts().sort_index().tolist()}")
 
 # Define SVM parameters (from Optuna optimization)
 svm_params = {
@@ -104,8 +241,8 @@ else:
     means_class_1 = [0] * len(feature_names)
 
 # Calculate class distributions
-train_class_dist = np.bincount(y_train).tolist()
-test_class_dist = np.bincount(y_test).tolist()
+train_class_dist = y_train.value_counts().sort_index().tolist()
+test_class_dist = y_test.value_counts().sort_index().tolist()
 
 # Calculate additional statistics
 error_rate = 1 - accuracy
@@ -174,8 +311,8 @@ results = {
         }
     },
     'prediction_distribution':{
-        'pred_counts': pred_counts,
-        'true_counts': true_counts
+        'pred_counts': pred_counts.tolist(),
+        'true_counts': true_counts.tolist()
     },
     'paths': {
         'train_data': '../dataset/splits/train.csv',
@@ -206,8 +343,8 @@ MODEL PARAMETERS:
 DATASET INFORMATION:
 - Training samples: {len(X_train)}
 - Test samples: {len(X_test)}
-- Training class distribution: {np.bincount(y_train).tolist()}
-- Test class distribution: {np.bincount(y_test).tolist()}
+- Training class distribution: {y_train.value_counts().sort_index().tolist()}
+- Test class distribution: {y_test.value_counts().sort_index().tolist()}
 
 PERFORMANCE METRICS ON TEST SET:
 - Accuracy: {accuracy:.4f}
