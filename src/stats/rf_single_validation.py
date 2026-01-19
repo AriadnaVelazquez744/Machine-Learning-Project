@@ -37,7 +37,7 @@ RANDOM_STATE = 42
 BETA = 2  # For F2-score
 
 # Define paths
-FOLDS_DIR = '../dataset/folds/'
+FOLDS_DIR = '../dataset/folds_2/'
 STATS_DIR = 'results'
 MODELS_DIR = 'models/'
 
@@ -510,7 +510,7 @@ if __name__ == "__main__":
     # Change this variable to the fold index you want to validate (0-9 for 10 folds)
     # fold_idx is 0-based: 0 = fold 1, 1 = fold 2, ..., 9 = fold 10
     # Already processed folds: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
-    for i in [0]:
+    for i in [3]:
         # FOLD_TO_VALIDATE = i  # Change this value to validate different folds
         print(f"Validating fold call {i}")
         # Validate the specified fold
