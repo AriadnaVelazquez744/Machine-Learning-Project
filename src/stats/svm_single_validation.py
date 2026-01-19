@@ -324,7 +324,7 @@ def validate_svm_fold(fold_idx: int):
         raise ValueError(f"fold_idx must be between 0 and {N_FOLDS-1}, got {fold_idx}")
     
     print("="*70)
-    print(f"SVM MODEL - FOLD {fold_idx + 11} VALIDATION")
+    print(f"SVM MODEL - FOLD {fold_idx + 21} VALIDATION")
     print("="*70)
     
     # Get SVM hyperparameters and sampling strategy
@@ -345,7 +345,7 @@ def validate_svm_fold(fold_idx: int):
     X_train, y_train = split_features_target(train_data)
     X_test, y_test = split_features_target(test_data)
     
-    print(f"\nFold {fold_idx + 11}/{N_FOLDS}")
+    print(f"\nFold {fold_idx + 21}/{N_FOLDS}")
     print("-"*70)
     print(f"Train samples: {len(X_train)}, Test samples: {len(X_test)}")
     print(f"Train class distribution: {y_train.value_counts().to_dict()}")
@@ -383,7 +383,7 @@ def validate_svm_fold(fold_idx: int):
     
     # Store fold results (including predictions for McNemar test)
     fold_result = FoldResults(
-        fold_num=fold_idx + 11,
+        fold_num=fold_idx + 21,
         f2_score=f2,
         f1_score=f1,
         accuracy=accuracy,
@@ -398,7 +398,7 @@ def validate_svm_fold(fold_idx: int):
         y_pred=y_pred
     )
     
-    print(f"\nResults for Fold {fold_idx + 11}:")
+    print(f"\nResults for Fold {fold_idx + 21}:")
     print(f"F2-Score: {f2:.4f}, F1-Score: {f1:.4f}, Accuracy: {accuracy:.4f}, Precision: {precision:.4f}, Recall: {recall:.4f}")
     print(f"Train time: {train_time:.2f}s, Prediction time: {pred_time:.4f}s")
     print(f"Confusion Matrix:\n{cm}")
@@ -416,7 +416,7 @@ def validate_svm_fold(fold_idx: int):
         existing_fold_details = existing_data.get('fold_details', [])
         
         # Remove the fold if it already exists (to update it)
-        existing_fold_details = [fd for fd in existing_fold_details if fd['fold_num'] != fold_idx + 11]
+        existing_fold_details = [fd for fd in existing_fold_details if fd['fold_num'] != fold_idx + 21]
         
         # Add the new fold result
         new_fold_detail = {
@@ -505,14 +505,14 @@ def validate_svm_fold(fold_idx: int):
         print(f"Mean Recall: {svm_validation_results.mean_recall:.4f}")
         print(f"\nF2-Scores per fold: {[f'{s:.4f}' for s in svm_validation_results.f2_scores]}")
     
-    print(f"\nFold {fold_idx + 11} validation completed. Results saved to {filepath}")
+    print(f"\nFold {fold_idx + 21} validation completed. Results saved to {filepath}")
     return svm_validation_results
 
 if __name__ == "__main__":
     # Manually determine the fold to validate
     # Change this variable to the fold index you want to validate (0-9 for 10 folds)
     # fold_idx is 0-based: 0 = fold 1, 1 = fold 2, ..., 9 = fold 10
-    # Already processed folds: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+    # Already processed folds: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
     for i in [0]:
         # FOLD_TO_VALIDATE = i  # Change this value to validate different folds
         print(f"Validating fold call {i}")
