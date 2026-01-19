@@ -1,0 +1,144 @@
+{
+    "test_info": {
+        "test_name": "Repeated Measures ANOVA (Within-Subjects)",
+        "design": "Within-subjects (same CV folds for all models)",
+        "significance_level": 0.05,
+        "null_hypothesis": "All models have equal mean F2 scores (\u03bc\u2081 = \u03bc\u2082 = \u03bc\u2083 = \u03bc\u2084)",
+        "alternative_hypothesis": "At least one model has different mean F2 score",
+        "total_observations": 80,
+        "groups": 4,
+        "observations_per_group": 30,
+        "analysis_date": "2026-01-19 10:02:32",
+        "assumptions_checked": {
+            "normality": "Confirmed by Shapiro-Wilk test (all p \u2265 0.05)",
+            "sphericity": "Not formally tested, using mixed model approach",
+            "independence": "Folds are independent, within-subjects correlation accounted"
+        }
+    },
+    "descriptive_statistics": {
+        "NeuralNetwork": {
+            "mean": 0.793815,
+            "std": 0.014985,
+            "se": 0.0033507478642834346,
+            "min": 0.770626,
+            "max": 0.821647,
+            "n": 20
+        },
+        "RandomForest": {
+            "mean": 0.794533,
+            "std": 0.007507,
+            "se": 0.001678616230709092,
+            "min": 0.78321,
+            "max": 0.80622,
+            "n": 20
+        },
+        "SVM": {
+            "mean": 0.873332,
+            "std": 0.003823,
+            "se": 0.0008548487877981695,
+            "min": 0.868449,
+            "max": 0.88089,
+            "n": 20
+        },
+        "XGBoost": {
+            "mean": 0.778827,
+            "std": 0.006333,
+            "se": 0.0014161018501506167,
+            "min": 0.767586,
+            "max": 0.786893,
+            "n": 20
+        }
+    },
+    "grand_statistics": {
+        "grand_mean": 0.810126929697039,
+        "total_variance": 0.0021931529625585384,
+        "overall_std": 0.046831111054068945
+    },
+    "anova_table": {
+        "sources": [
+            "Between Groups",
+            "Within Groups",
+            "Total"
+        ],
+        "sum_of_squares": [
+            0.16451385304479238,
+            0.008745230997332158,
+            0.17325908404212453
+        ],
+        "degrees_of_freedom": [
+            3,
+            76,
+            79
+        ],
+        "mean_squares": [
+            0.054837951014930796,
+            0.00011506882891226523,
+            null
+        ],
+        "f_statistic": [
+            476.5665170429626,
+            null,
+            null
+        ],
+        "p_value": [
+            3.355707815405163e-75,
+            null,
+            null
+        ]
+    },
+    "test_statistics": {
+        "f_value": 476.5665170429626,
+        "p_value": 3.355707815405163e-75,
+        "partial_eta_squared": 0.9495251227623602,
+        "interpretation": "*** EXTREMELY SIGNIFICANT ***",
+        "effect_size_category": "Large"
+    },
+    "hypothesis_testing": {
+        "decision": "Reject H\u2080",
+        "conclusion": "Significant differences exist between models",
+        "practical_implication": "Proceed with post-hoc tests",
+        "confidence_level": "95%",
+        "alpha_level": 0.05
+    },
+    "raw_data_structure": {
+        "total_rows": 80,
+        "columns": [
+            "fold",
+            "model",
+            "f2_score",
+            "model_id"
+        ],
+        "sample_data": [
+            {
+                "fold": 1,
+                "model": "SVM",
+                "f2_score": 0.880890452876377,
+                "model_id": 1
+            },
+            {
+                "fold": 1,
+                "model": "RandomForest",
+                "f2_score": 0.7979870596693026,
+                "model_id": 2
+            },
+            {
+                "fold": 1,
+                "model": "NeuralNetwork",
+                "f2_score": 0.8099334523616296,
+                "model_id": 3
+            },
+            {
+                "fold": 1,
+                "model": "XGBoost",
+                "f2_score": 0.7830264211369096,
+                "model_id": 4
+            },
+            {
+                "fold": 2,
+                "model": "SVM",
+                "f2_score": 0.8784767450770056,
+                "model_id": 1
+            }
+        ]
+    }
+}

@@ -1,0 +1,75 @@
+{
+    "test_info": {
+        "test_name": "Shapiro-Wilk Normality Test",
+        "significance_level": 0.05,
+        "null_hypothesis": "Data is normally distributed",
+        "alternative_hypothesis": "Data is not normally distributed",
+        "sample_size_per_model": 30,
+        "total_models": 4,
+        "analysis_date": "2026-01-19 10:00:39",
+        "analysis_parameters": {
+            "confidence_level": "95%",
+            "decision_rule": "p \u2265 0.05: Fail to reject H\u2080 (normal), p < 0.05: Reject H\u2080 (non-normal)"
+        }
+    },
+    "model_results": [
+        {
+            "model": "SVM",
+            "w_statistic": 0.9582489944950113,
+            "p_value": 0.2792476486838118,
+            "is_normal": "True",
+            "normality_conclusion": "NORMAL",
+            "sample_size": 30,
+            "mean_f2": 0.8735070280571509,
+            "std_f2": 0.003681707398566031
+        },
+        {
+            "model": "RandomForest",
+            "w_statistic": 0.9614570175536336,
+            "p_value": 0.33732846203595646,
+            "is_normal": "True",
+            "normality_conclusion": "NORMAL",
+            "sample_size": 30,
+            "mean_f2": 0.7944622736040974,
+            "std_f2": 0.007470506817348013
+        },
+        {
+            "model": "NeuralNetwork",
+            "w_statistic": 0.960711624465997,
+            "p_value": 0.3229836665710023,
+            "is_normal": "True",
+            "normality_conclusion": "NORMAL",
+            "sample_size": 30,
+            "mean_f2": 0.7942837152402559,
+            "std_f2": 0.013297863975499329
+        },
+        {
+            "model": "XGBoost",
+            "w_statistic": 0.9354934589520713,
+            "p_value": 0.06882190994294879,
+            "is_normal": "True",
+            "normality_conclusion": "NORMAL",
+            "sample_size": 30,
+            "mean_f2": 0.7783234945684387,
+            "std_f2": 0.006731349948078034
+        }
+    ],
+    "summary_statistics": {
+        "normal_count": 4,
+        "non_normal_count": 0,
+        "normal_percentage": 100.0,
+        "non_normal_percentage": 0.0,
+        "normal_models": [
+            "SVM",
+            "RandomForest",
+            "NeuralNetwork",
+            "XGBoost"
+        ],
+        "non_normal_models": []
+    },
+    "recommendations": {
+        "if_all_normal": "Use parametric tests: ANOVA + post-hoc t-tests",
+        "if_any_non_normal": "Use non-parametric tests: Friedman + Wilcoxon signed-rank",
+        "if_mixed": "Use non-parametric tests for robustness or consider transformations"
+    }
+}

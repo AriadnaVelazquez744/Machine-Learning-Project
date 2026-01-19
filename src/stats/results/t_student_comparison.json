@@ -1,0 +1,45 @@
+{
+    "test_date": "2026-01-19 10:09:19",
+    "comparisons": {
+        "SVM_vs_RandomForest": {
+            "t_statistic": 74.14912915757257,
+            "p_value": 1.2783027838142767e-34,
+            "mean_f2_SVM": 0.8735070280571509,
+            "mean_f2_RandomForest": 0.7944622736040974,
+            "alternative_hypothesis": "SVM mean F2 > RandomForest mean F2",
+            "one_sided_p_value": 6.391513919071383e-35
+        },
+        "SVM_vs_NeuralNetwork": {
+            "t_statistic": 33.49345116104607,
+            "p_value": 9.826299583287647e-25,
+            "mean_f2_SVM": 0.8735070280571509,
+            "mean_f2_NeuralNetwork": 0.7942837152402559,
+            "alternative_hypothesis": "SVM mean F2 > NeuralNetwork mean F2",
+            "one_sided_p_value": 4.913149791643824e-25
+        },
+        "SVM_vs_XGBoost": {
+            "t_statistic": 83.83596283976735,
+            "p_value": 3.691435563683545e-36,
+            "mean_f2_SVM": 0.8735070280571509,
+            "mean_f2_XGBoost": 0.7783234945684387,
+            "alternative_hypothesis": "SVM mean F2 > XGBoost mean F2",
+            "one_sided_p_value": 1.8457177818417724e-36
+        }
+    },
+    "test_type": "Paired t-test (t-test_rel)",
+    "hypothesis": {
+        "null_hypothesis": "SVM mean F2 \u2264 Other model mean F2",
+        "alternative_hypothesis": "SVM mean F2 > Other model mean F2",
+        "significance_level": 0.05,
+        "test_description": "One-sided paired t-test comparing SVM against each other model"
+    },
+    "data_info": {
+        "n_folds": 30,
+        "model_order": [
+            "SVM",
+            "RandomForest",
+            "NeuralNetwork",
+            "XGBoost"
+        ]
+    }
+}
